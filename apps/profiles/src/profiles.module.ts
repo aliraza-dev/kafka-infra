@@ -8,7 +8,7 @@ import { LoggerModule } from 'nestjs-pino';
     LoggerModule.forRoot({
       pinoHttp: {
         level: process.env.LOG_LEVEL || 'info',
-        messageKey: 'custom-nestjsapp',
+        messageKey: 'profiles',
         formatters: {
           level(label) {
             return { level: label.toUpperCase() };
