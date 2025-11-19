@@ -1,6 +1,10 @@
 import { Controller, Get, Inject, Logger, Req } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { ClientProxy, MessagePattern } from '@nestjs/microservices';
+import {
+  ClientKafkaProxy,
+  MessagePattern,
+  Payload,
+} from '@nestjs/microservices';
 
 @Controller('users')
 export class UsersController {
@@ -8,7 +12,7 @@ export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     @Inject('PROFILE_SERVICE')
-    private readonly profileServiceClient: ClientProxy,
+    private readonly profileServiceClient: ClientKafkaProxy,
   ) {}
 
   @Get()
@@ -18,8 +22,9 @@ export class UsersController {
   }
 
   @MessagePattern({ cmd: 'user.findAll' })
-  async getUsers(request: any) {
-    console.log('request', request);
+  async getUsers(@Payload() request: any) {
+    console.log('request', request.value.toString());
+    console.log('partition', request.partition);
 
     const profileData = await this.profileServiceClient
       .send({ cmd: 'profile.getOne' }, { id: 1 })

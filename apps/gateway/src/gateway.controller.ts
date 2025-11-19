@@ -1,13 +1,15 @@
 import { Controller, Get, Inject, Req } from '@nestjs/common';
-import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { ClientKafkaProxy, RpcException } from '@nestjs/microservices';
 import { catchError, map, tap, throwError } from 'rxjs';
+import { Kafka } from 'kafkajs';
 
 @Controller()
 export class GatewayController {
   constructor(
-    @Inject('USER_SERVICE') private readonly userServiceClient: ClientProxy,
+    @Inject('USER_SERVICE')
+    private readonly userServiceClient: ClientKafkaProxy,
     @Inject('PROFILE_SERVICE')
-    private readonly profileServiceClient: ClientProxy,
+    private readonly profileServiceClient: ClientKafkaProxy,
   ) {}
 
   @Get('users')
@@ -28,5 +30,18 @@ export class GatewayController {
     console.log('prof', prof);
 
     return prof;
+  }
+
+  @Get('/create-profiles')
+  async createProfiles() {
+    // await admin.createTopics({
+    //   topics: [
+    //     {
+    //       topic: 'orders',
+    //       numPartitions: 3,
+    //       replicationFactor: 1,
+    //     },
+    //   ],
+    // });
   }
 }

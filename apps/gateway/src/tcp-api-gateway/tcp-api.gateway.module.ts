@@ -6,18 +6,28 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ClientsModule.register([
       {
         name: 'USER_SERVICE',
-        transport: Transport.TCP,
+        transport: Transport.KAFKA,
         options: {
-          host: 'localhost',
-          port: 3001,
+          client: {
+            clientId: 'user',
+            brokers: ['localhost:9092'],
+          },
+          consumer: {
+            groupId: 'user-consumer',
+          },
         },
       },
       {
         name: 'PROFILE_SERVICE',
-        transport: Transport.TCP,
+        transport: Transport.KAFKA,
         options: {
-          host: 'localhost',
-          port: 3002,
+          client: {
+            clientId: 'profile',
+            brokers: ['localhost:9092'],
+          },
+          consumer: {
+            groupId: 'profile-consumer',
+          },
         },
       },
     ]),
@@ -26,18 +36,28 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ClientsModule.register([
       {
         name: 'USER_SERVICE',
-        transport: Transport.TCP,
+        transport: Transport.KAFKA,
         options: {
-          host: 'localhost',
-          port: 3001,
+          client: {
+            clientId: 'user',
+            brokers: ['localhost:9092'],
+          },
+          consumer: {
+            groupId: 'user-consumer',
+          },
         },
       },
       {
         name: 'PROFILE_SERVICE',
-        transport: Transport.TCP,
+        transport: Transport.KAFKA,
         options: {
-          host: 'localhost',
-          port: 3002,
+          client: {
+            clientId: 'profile',
+            brokers: ['localhost:9092'],
+          },
+          consumer: {
+            groupId: 'profile-consumer',
+          },
         },
       },
     ]),
