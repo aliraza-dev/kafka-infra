@@ -1,13 +1,10 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
-import { ClientKafka } from '@nestjs/microservices';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Kafka } from 'kafkajs';
 
 @Injectable()
 export class KafkaAdminService implements OnModuleInit {
   private admin;
-  constructor(
-    @Inject('KAFKA_CLIENT') private readonly kafkaClient: ClientKafka,
-  ) {
+  constructor() {
     const kafka = new Kafka({
       clientId: 'admin-client',
       brokers: ['localhost:9092'],

@@ -12,34 +12,40 @@ export class ProfilesController {
     return this.profilesService.getHello();
   }
 
-  @MessagePattern({ cmd: 'profile.findAll' })
-  getProfiles() {
-    return this.profilesService.getProfiles();
-  }
-
-  @MessagePattern({ cmd: 'profile.getOne' })
-  getProfileById(data: { id: number }) {
-    // Dummy implementation for fetching a profile by ID
-    const profiles = [
-      {
-        id: 1,
-        companyName: 'Tech Solutions',
-        location: 'New York',
-        employees: 150,
-      },
-      {
-        id: 2,
-        companyName: 'Innovatech',
-        location: 'San Francisco',
-        employees: 200,
-      },
-    ];
-
-    return profiles.find((profile) => profile.id === data.id);
-  }
-
-  @EventPattern({ cmd: 'profile.createdLogs' })
-  handleProfileCreatedLogs(data: any) {
+  @EventPattern('profiles')
+  async handleProfileCreated(data: any) {
     console.log('Profile Created Event Received:', data);
+    // Additional processing logic can be added here
   }
+
+  // @MessagePattern({ cmd: 'profile.findAll' })
+  // getProfiles() {
+  //   return this.profilesService.getProfiles();
+  // }
+
+  // @MessagePattern({ cmd: 'profile.getOne' })
+  // getProfileById(data: { id: number }) {
+  //   // Dummy implementation for fetching a profile by ID
+  //   const profiles = [
+  //     {
+  //       id: 1,
+  //       companyName: 'Tech Solutions',
+  //       location: 'New York',
+  //       employees: 150,
+  //     },
+  //     {
+  //       id: 2,
+  //       companyName: 'Innovatech',
+  //       location: 'San Francisco',
+  //       employees: 200,
+  //     },
+  //   ];
+
+  //   return profiles.find((profile) => profile.id === data.id);
+  // }
+
+  // @EventPattern({ cmd: 'profile.createdLogs' })
+  // handleProfileCreatedLogs(data: any) {
+  //   console.log('Profile Created Event Received:', data);
+  // }
 }
