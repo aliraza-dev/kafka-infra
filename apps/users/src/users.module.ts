@@ -25,16 +25,16 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         },
       },
     }),
-    ClientsModule.register([
-      {
-        name: 'PROFILE_SERVICE',
-        transport: Transport.TCP,
-        options: {
-          host: 'localhost',
-          port: 3002,
-        },
-      },
-    ]),
+    // ClientsModule.register([
+    //   {
+    //     name: 'PROFILE_SERVICE',
+    //     transport: Transport.TCP,
+    //     options: {
+    //       host: 'localhost',
+    //       port: 3002,
+    //     },
+    //   },
+    // ]),
   ],
   controllers: [UsersController],
   providers: [UsersService],

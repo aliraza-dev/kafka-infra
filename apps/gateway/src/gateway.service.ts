@@ -8,6 +8,11 @@ export class GatewayService {
     @Inject('PROFILE_SERVICE')
     private readonly profileServiceClient: ClientKafka,
   ) {}
+
+  async onModuleInit() {
+    this.profileServiceClient.subscribeToResponseOf('profiles');
+  }
+
   getHello(): string {
     return 'Hello World!';
   }

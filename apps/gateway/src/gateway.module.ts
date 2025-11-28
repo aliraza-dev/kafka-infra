@@ -23,7 +23,6 @@ import { group } from 'console';
             groupId: 'profiles-consumer',
           },
           subscribe: {
-            topics: ['profiles'],
             fromBeginning: true,
           },
         },
